@@ -123,5 +123,6 @@ Detailed explanation of architecture, instruction set, and simulation results is
 
 This project is licensed under the MIT License.
 
-✍️ Author
+✍️ Author 
+
 Rupashri R
