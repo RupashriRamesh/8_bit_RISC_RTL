@@ -109,17 +109,15 @@ git clone https://github.com/RupashriRamesh/8_bit_RISC_RTL.git
 
 📚 Documentation
 
-Detailed explanation of architecture, instruction set, and simulation results is available in [RISC_Processor_Report.pdf](docs/Risc_processor_report.pdf).
+Detailed explanation of architecture, instruction set, and simulation results is available in [RISC_Processor_Report.pdf](docs/Risc_Processor_report.pdf).
 
 
-## 📌 Future Enhancements
+### 📌 Future Enhancements
 
-Multi-cycle architecture implementation
-Pipeline execution support
-Integration with FPGA hardware
-Enhanced instruction set
-
---- 
+- Multi-cycle architecture implementation  
+- Pipeline execution support  
+- Integration with FPGA hardware  
+- Enhanced instruction set
 
 📜 License
 
