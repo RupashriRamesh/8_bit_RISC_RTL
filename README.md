@@ -45,6 +45,7 @@ The processor demonstrates a simplified RISC instruction set supporting **arithm
 ├── simulations/ # Simulation outputs
 │ ├── waveform.bmp
 │ └── simulation_transcript.txt
+│ └── RTL_Viewer
 ├── quartus/ # Quartus project files
 │ └── RISC.qpf
 ├── .gitignore
@@ -99,7 +100,8 @@ The processor demonstrates a simplified RISC instruction set supporting **arithm
 
 1. Clone the repository:  
 ```bash
-git clone https://github.com/YourUsername/8_bit_RISC_RTL.git ```
+git clone https://github.com/YourUsername/8_bit_RISC_RTL.git 
+```
 2. Open ModelSim.
 3. Compile all .v files from the src/ folder.
 4. Load the RISC_TB testbench.
@@ -107,7 +109,8 @@ git clone https://github.com/YourUsername/8_bit_RISC_RTL.git ```
 
 📚 Documentation
 
-Detailed explanation of architecture, instruction set, and simulation results is available in RISC_Report.pdf.
+Detailed explanation of architecture, instruction set, and simulation results is available in [RISC_Processor_Report.pdf](docs/RISC_Report.pdf).
+
 
 📌 Future Enhancements
 
