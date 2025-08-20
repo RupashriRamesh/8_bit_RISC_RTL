@@ -5,7 +5,7 @@ module REGISTER #(
     input clk,
     input reset,
     input Wr_en,                          // Write enable signal
-    //$clog2(N) = ceiling of log base 2 of N
+    //$clog2(N) = ceiling of log base 2 of N - determines no of bits based on reg count.
     input [$clog2(REG_COUNT)-1:0] rs1,    // Read register 1 address
     input [$clog2(REG_COUNT)-1:0] rs2,    // Read register 2 address
     input [$clog2(REG_COUNT)-1:0] rd,     // Destination register address
