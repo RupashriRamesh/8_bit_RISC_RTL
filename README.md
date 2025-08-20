@@ -49,7 +49,8 @@ The processor demonstrates a simplified RISC instruction set supporting **arithm
 │ └── RISC.qpf
 ├── .gitignore
 ├── README.md
-└── LICENSE```
+└── LICENSE
+```
 
 
 ---
