@@ -29,7 +29,7 @@ module REGISTER #(
         end else if (Wr_en) begin
             if (rd != 0) begin // Prevent writing to register 0
                 registers[rd] <= Wr_data;
-                $display("Write Enabled: Register[%0d] <= %h", rd, Wr_data);
+                $display("Write Enabled: Register[%0d] <= %h (in decimal: %d)", rd, Wr_data);
             end
         end
     end
