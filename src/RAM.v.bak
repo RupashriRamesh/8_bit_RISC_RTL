@@ -1,0 +1,18 @@
+module RAM (
+    input clk,
+    input Wr_en,
+    input [3:0] Address,
+    input [7:0] Wr_data,
+    output reg [7:0] Rd_data
+);
+
+    reg [7:0] mem [15:0];
+
+    always @(posedge clk) begin
+        if (Wr_en)
+            mem[Address] <= Wr_data;  // Store data into memory
+
+        Rd_data <= mem[Address];  // Read data from memory
+    end
+
+endmodule

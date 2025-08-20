@@ -1,0 +1,52 @@
+module RISC_TB();
+    reg clk;
+    reg reset;
+    wire [7:0] alu_result;
+    wire [7:0] rd_data1, rd_data2;
+    wire [3:0] PC;
+    wire [3:0] opcode;
+    wire [7:0] Wr_data;
+    wire halt;
+
+    // Instantiate the top module
+    RISC_Top_Module uut (
+        .halt(halt),
+        .clk(clk),
+        .reset(reset),
+        .alu_result(alu_result),
+        .rd_data1(rd_data1),
+        .rd_data2(rd_data2),
+        .PC(PC),
+        .opcode(opcode),
+        .Wr_data(Wr_data)
+    );
+
+    // Clock generation: 10-time units period
+   always begin
+    #5 clk = ~clk;
+end
+
+initial begin
+    clk = 0;
+    reset = 1;
+    #10;
+    reset = 0;
+    #10;
+
+    $display("Starting instruction checks...");
+
+   forever begin
+        @(negedge clk);
+        $display("PC = %2d, Instruction = %b, rd_data1 = %3d, rd_data2 = %3d, alu_result = %3d", 
+                 PC, uut.instruction, rd_data1, rd_data2, alu_result);
+    end
+end
+
+always @(posedge clk) begin
+    if (halt) begin
+        $display("HALT encountered. Stopping simulation.");
+        $finish;
+    end
+end
+endmodule
+

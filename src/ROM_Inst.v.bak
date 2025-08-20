@@ -1,0 +1,51 @@
+module ROM_Inst (
+    input [3:0] PC,
+    input clk,
+    input reset,
+    output reg [15:0] Instruction
+);
+
+    reg [15:0] memory [15:0]; // 17 instructions
+
+    initial begin
+    // Control: Start with Jump to mem[1]
+    memory[0]  = 16'b1110000000000001; // JMP to address 1
+
+    // Load immediate values
+    memory[1]  = 16'b1101000100001010; // MOV R1, 10
+    memory[2]  = 16'b1101001000000101; // MOV R2, 5
+
+    // Arithmetic
+    memory[3]  = 16'b0000000100100011; // ADD R1, R2 -> R3
+    memory[4]  = 16'b0001001100100100; // SUB R3, R2 -> R4
+    memory[5]  = 16'b0010000100100101; // MUL R1, R2 -> R5
+    memory[6]  = 16'b0011000100100110; // DIV R1, R2 -> R6
+
+    // Logic
+    memory[7]  = 16'b0100000100100111; // AND R1, R2 -> R7
+    memory[8]  = 16'b0101000100101000; // OR  R1, R2 -> R8
+    memory[9]  = 16'b0110000100101001; // XOR R1, R2 -> R9
+    memory[10] = 16'b0111000100001010; // NOT R1 -> R10
+
+    // Shifts
+    memory[11] = 16'b1000000100101011; // SHR R1, R2 -> R11
+    memory[12] = 16'b1001000100101100; // SHL R1, R2 -> R12
+
+    // Comparisons
+    memory[13] = 16'b1010000100101101; // LT  R1, R2 -> R13
+    memory[14] = 16'b1011000100101110; // EQ  R1, R2 -> R14
+
+    // Control
+    memory[15] = 16'b1111000000000000; // HALT
+end
+
+
+// ROM_Inst: combinational instruction fetch (single-cycle style)
+always @(*) begin
+    if (reset)
+        Instruction <= 16'b0;
+    else
+        Instruction <= memory[PC];
+end
+
+endmodule

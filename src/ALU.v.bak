@@ -1,0 +1,29 @@
+module ALU (
+    input  [7:0] input1,
+    input  [7:0] input2,
+    input  [3:0] ALU_op, 
+    output reg [7:0] ALU_Result
+);
+
+    always @(*) begin
+        case (ALU_op)
+            4'b0000: ALU_Result = input1 + input2;                     // ADD
+            4'b0001: ALU_Result = input1 - input2;                     // SUB
+            4'b0010: ALU_Result = input1 * input2;                     // MUL
+            4'b0011: ALU_Result = (input2 != 0) ? (input1 / input2) : 8'b0; // DIV (safe)
+            4'b0100: ALU_Result = input1 & input2;                     // AND
+            4'b0101: ALU_Result = input1 | input2;                     // OR
+            4'b0110: ALU_Result = input1 ^ input2;                     // XOR
+            4'b0111: ALU_Result = ~input1;                             // NOT (bitwise)
+          4'b1000: ALU_Result = input1 >> input2[2:0];  // RIGHT SHIFT (0-7)
+          4'b1001: ALU_Result = input1 << input2[2:0];  // LEFT SHIFT (0-7)
+                    // LEFT SHIFT
+            4'b1010: ALU_Result = (input1 < input2) ? 8'b1 : 8'b0;     // LESS THAN
+            4'b1011: ALU_Result = (input1 == input2) ? 8'b1 : 8'b0;    // EQUAL
+            4'b1100: ALU_Result = (input1 != input2) ? 8'b1 : 8'b0;    // NOT EQUAL
+            4'b1111: ALU_Result = input2;                              // MOV
+            default: ALU_Result = 8'b00000000;
+        endcase
+    end
+
+endmodule

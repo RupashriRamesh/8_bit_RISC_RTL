@@ -1,0 +1,163 @@
+module Control_Unit ( 
+    input [15:0] instruction,
+    input clk,
+    input reset,
+    output reg [3:0] opcode,
+    output reg [3:0] rs1, rs2, rd,
+    output reg [7:0] immediate,
+    output reg ALU_src, RegWrite, MemWrite, MemRead,
+    output reg [3:0] ALU_op,       // updated to 4 bits
+    output reg jump_flag,
+    output reg halt,
+    output reg [7:0] jump_address
+);
+
+    always @(*) begin
+        if (reset) begin
+            jump_flag   = 0;
+            halt        = 0;
+            jump_address= 0;
+            opcode      = 4'b0000;
+            rs1         = 4'b0000;
+            rs2         = 4'b0000;
+            rd          = 4'b0000;
+            immediate   = 8'b00000000;
+            ALU_src     = 0;
+            RegWrite    = 0;
+            MemWrite    = 0;
+            MemRead     = 0;
+            ALU_op      = 4'b0000;
+        end else begin
+            opcode = instruction[15:12];
+            case (instruction[15:12])
+
+                // Arithmetic / Logic Instructions
+                4'b0000: begin // ADD
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0000; jump_flag = 0; halt = 0;
+                end
+                4'b0001: begin // SUB
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0001; jump_flag = 0; halt = 0;
+                end
+                4'b0010: begin // MUL
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0010; jump_flag = 0; halt = 0;
+                end
+                4'b0011: begin // DIV
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0011; jump_flag = 0; halt = 0;
+                end
+                4'b0100: begin // AND
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0100; jump_flag = 0; halt = 0;
+                end
+                4'b0101: begin // OR
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0101; jump_flag = 0; halt = 0;
+                end
+                4'b0110: begin // XOR
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0110; jump_flag = 0; halt = 0;
+                end
+                4'b0111: begin // NOT
+                    rs1 = instruction[11:8];
+                    rs2 = 4'b0000;
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0111; jump_flag = 0; halt = 0;
+                end
+
+                // Shifts & Comparisons
+                4'b1000: begin // SHIFT RIGHT
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b1000; jump_flag = 0; halt = 0;
+                end
+                4'b1001: begin // SHIFT LEFT
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b1001; jump_flag = 0; halt = 0;
+                end
+                4'b1010: begin // LESS THAN
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b1010; jump_flag = 0; halt = 0;
+                end
+                4'b1011: begin // EQUAL
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b1011; jump_flag = 0; halt = 0;
+                end
+                4'b1100: begin // NOT EQUAL
+                    rs1 = instruction[11:8];
+                    rs2 = instruction[7:4];
+                    rd  = instruction[3:0];
+                    ALU_src = 0; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b1100; jump_flag = 0; halt = 0;
+                end
+
+                // Special Instructions
+                4'b1101: begin // MOV (immediate to register)
+                    rd = instruction[11:8];
+                    immediate = instruction[7:0];
+                    ALU_src = 1; RegWrite = 1; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b1111; jump_flag = 0; halt = 0;
+                end
+                4'b1110: begin // JMP
+                    jump_flag = 1; halt = 0;
+                    jump_address = instruction[7:0];
+                    rs1 = 4'b0000; rs2 = 4'b0000; rd = 4'b0000;
+                    immediate = 8'b00000000;
+                    ALU_src = 0; RegWrite = 0; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0000;
+                end
+                4'b1111: begin // HALT
+                    halt = 1; jump_flag = 0;
+                    RegWrite = 0; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0000;
+                    rs1 = 4'b0000; rs2 = 4'b0000; rd = 4'b0000;
+                    immediate = 8'b00000000;
+                    ALU_src = 0; 
+                end
+
+                default: begin
+                    jump_flag = 0; halt = 0;
+                    rs1 = 4'b0000; rs2 = 4'b0000; rd = 4'b0000;
+                    immediate = 8'b00000000;
+                    ALU_src = 0; RegWrite = 0; MemWrite = 0; MemRead = 0;
+                    ALU_op = 4'b0000;
+                end
+            endcase
+        end
+    end
+endmodule

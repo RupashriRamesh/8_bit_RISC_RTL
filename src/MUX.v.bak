@@ -1,0 +1,11 @@
+module MUX (
+    input ALU_src,
+    input [7:0] Register_data,
+    input [7:0] Immediate_value,
+    output [7:0] ALU_Input
+);
+    
+    assign ALU_Input = ALU_src ? Immediate_value : Register_data;
+    
+
+endmodule

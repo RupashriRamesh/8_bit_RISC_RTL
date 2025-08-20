@@ -1,0 +1,112 @@
+module RISC_Top_Module (
+    input clk,
+    input reset,
+    output [7:0] alu_result,
+    output [7:0] rd_data1, rd_data2,
+    output [3:0] PC,      
+    output [3:0] opcode,  
+    output [7:0] Wr_data,
+    output halt  
+);
+
+    // PC register
+    reg [3:0] PC_reg;
+
+    // Internal wires
+    wire [15:0] instruction;      // instruction comes only from ROM
+    wire [3:0] rs1, rs2, rd;
+    wire [7:0] immediate;
+    wire ALU_src, RegWrite, MemWrite, MemRead;
+    wire [3:0] ALU_op;
+    wire [7:0] alu_input2;
+    wire [7:0] ram_out;
+    wire [7:0] rd_data1_internal, rd_data2_internal;
+    wire jump_flag;
+    wire [7:0] jump_address;
+
+    // Instruction Memory (ROM)
+    ROM_Inst rom_inst (
+        .PC(PC_reg),
+        .clk(clk),
+        .reset(reset),
+        .Instruction(instruction)    // ONLY this drives instruction
+    );
+
+    // Control Unit
+    Control_Unit control_unit (
+        .halt(halt),
+        .instruction(instruction),   // input from ROM
+        .clk(clk),
+        .reset(reset),
+        .opcode(opcode),
+        .rs1(rs1),
+        .rs2(rs2),
+        .rd(rd),
+        .immediate(immediate),
+        .ALU_src(ALU_src),
+        .RegWrite(RegWrite),
+        .MemWrite(MemWrite),
+        .MemRead(MemRead),
+        .ALU_op(ALU_op),
+        .jump_flag(jump_flag),
+        .jump_address(jump_address)
+    );
+
+    // MUX for ALU input
+    MUX alu_mux (
+        .ALU_src(ALU_src),
+        .Register_data(rd_data2_internal),
+        .Immediate_value(immediate),
+        .ALU_Input(alu_input2)
+    );
+
+    // ALU
+    ALU alu (
+        .input1(rd_data1_internal),
+        .input2(alu_input2),
+        .ALU_op(ALU_op),
+        .ALU_Result(alu_result)
+    );
+    
+    assign rd_data1 = rd_data1_internal;
+    assign rd_data2 = rd_data2_internal;
+
+    // Register File
+    REGISTER register_file (
+        .clk(clk),
+        .reset(reset),
+        .Wr_en(RegWrite),
+        .rs1(rs1),
+        .rs2(rs2),
+        .rd(rd),
+        .Wr_data(alu_result),
+        .readData1(rd_data1_internal),
+        .readData2(rd_data2_internal)
+    );
+
+    // Data Memory (RAM)
+    RAM data_memory (
+        .clk(clk),
+        .Wr_en(MemWrite),
+        .Address(rd),
+        .Wr_data(rd_data1_internal),  // Write rd_data1 into RAM
+        .Rd_data(ram_out)
+    );
+
+    // PC update logic
+  // In RISC_Top_Module: update PC on posedge to align with ROM & CU
+always @(posedge clk or posedge reset) begin
+    if (reset)
+        PC_reg <= 0;
+    else if (jump_flag)
+        PC_reg <= jump_address[3:0]; // slice to PC width
+    else if (!halt)
+        PC_reg <= PC_reg + 1;
+end
+
+
+    // Output Assignments
+    assign PC = PC_reg;
+    assign Wr_data = alu_result;
+
+endmodule

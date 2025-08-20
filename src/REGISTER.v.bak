@@ -1,0 +1,43 @@
+module REGISTER #(
+    parameter REG_WIDTH = 8,      // Width of each register
+    parameter REG_COUNT = 16      // Number of registers
+)(
+    input clk,
+    input reset,
+    input Wr_en,                          // Write enable signal
+    //$clog2(N) = ceiling of log base 2 of N
+    input [$clog2(REG_COUNT)-1:0] rs1,    // Read register 1 address
+    input [$clog2(REG_COUNT)-1:0] rs2,    // Read register 2 address
+    input [$clog2(REG_COUNT)-1:0] rd,     // Destination register address
+    input [REG_WIDTH-1:0] Wr_data,        // Data to write
+    output reg [REG_WIDTH-1:0] readData1, // Data read from rs1
+    output reg [REG_WIDTH-1:0] readData2  // Data read from rs2
+);
+
+    // Register array
+    reg [REG_WIDTH-1:0] registers [0:REG_COUNT-1];
+
+    integer i;
+
+    // Reset and Write logic
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            // Initialize all registers to 0 using loop
+            for (i = 0; i < REG_COUNT; i = i + 1) begin
+                registers[i] <= {REG_WIDTH{1'b0}};
+            end
+        end else if (Wr_en) begin
+            if (rd != 0) begin // Prevent writing to register 0
+                registers[rd] <= Wr_data;
+                $display("Write Enabled: Register[%0d] <= %h", rd, Wr_data);
+            end
+        end
+    end
+
+    // Combinational Read
+    always @(*) begin
+        readData1 = registers[rs1];
+        readData2 = registers[rs2];
+    end
+
+endmodule
