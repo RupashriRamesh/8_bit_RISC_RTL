@@ -1,0 +1,62 @@
+# Reading C:/altera/13.0sp1/modelsim_ase/tcl/vsim/pref.tcl 
+# Loading project RISC_PROCESSOR
+vsim -voptargs=+acc work.RISC_TB
+# vsim -voptargs=+acc work.RISC_TB 
+# Loading work.RISC_TB
+# Loading work.RISC_Top_Module
+# Loading work.ROM_Inst
+# Loading work.Control_Unit
+# Loading work.MUX
+# Loading work.ALU
+# Loading work.REGISTER
+# Loading work.RAM
+add wave -position insertpoint sim:/RISC_TB/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: RUPASHRI R  Hostname: LAPTOP-U68B4GHP  ProcessID: 17868
+# 
+#           Attempting to use alternate WLF file "./wlftdvm4xx".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftdvm4xx
+# 
+add wave -position insertpoint sim:/RISC_TB/uut/*
+add wave -position insertpoint sim:/RISC_TB/uut/*
+add wave -position insertpoint sim:/RISC_TB/uut/*
+run -all
+# Starting instruction checks...
+# PC =  1, Instruction = 1101000100001010, rd_data1 =   0, rd_data2 =   0, alu_result =  10
+# Write Enabled: Register[1] <= 0a
+# PC =  2, Instruction = 1101001000000101, rd_data1 =   0, rd_data2 =   0, alu_result =   5
+# Write Enabled: Register[2] <= 05
+# PC =  3, Instruction = 0000000100100011, rd_data1 =  10, rd_data2 =   5, alu_result =  15
+# Write Enabled: Register[3] <= 0f
+# PC =  4, Instruction = 0001001100100100, rd_data1 =  15, rd_data2 =   5, alu_result =  10
+# Write Enabled: Register[4] <= 0a
+# PC =  5, Instruction = 0010000100100101, rd_data1 =  10, rd_data2 =   5, alu_result =  50
+# Write Enabled: Register[5] <= 32
+# PC =  6, Instruction = 0011000100100110, rd_data1 =  10, rd_data2 =   5, alu_result =   2
+# Write Enabled: Register[6] <= 02
+# PC =  7, Instruction = 0100000100100111, rd_data1 =  10, rd_data2 =   5, alu_result =   0
+# Write Enabled: Register[7] <= 00
+# PC =  8, Instruction = 0101000100101000, rd_data1 =  10, rd_data2 =   5, alu_result =  15
+# Write Enabled: Register[8] <= 0f
+# PC =  9, Instruction = 0110000100101001, rd_data1 =  10, rd_data2 =   5, alu_result =  15
+# Write Enabled: Register[9] <= 0f
+# PC = 10, Instruction = 0111000100001010, rd_data1 =  10, rd_data2 =   0, alu_result = 245
+# Write Enabled: Register[10] <= f5
+# PC = 11, Instruction = 1000000100101011, rd_data1 =  10, rd_data2 =   5, alu_result =   0
+# Write Enabled: Register[11] <= 00
+# PC = 12, Instruction = 1001000100101100, rd_data1 =  10, rd_data2 =   5, alu_result =  64
+# Write Enabled: Register[12] <= 40
+# PC = 13, Instruction = 1010000100101101, rd_data1 =  10, rd_data2 =   5, alu_result =   0
+# Write Enabled: Register[13] <= 00
+# PC = 14, Instruction = 1011000100101110, rd_data1 =  10, rd_data2 =   5, alu_result =   0
+# Write Enabled: Register[14] <= 00
+# PC = 15, Instruction = 1111000000000000, rd_data1 =   0, rd_data2 =   0, alu_result =   0
+# HALT encountered. Stopping simulation.
+# ** Note: $finish    : C:/Users/RUPASHRI R/Documents/RISC/RISC_TB.v(49)
+#    Time: 165 ps  Iteration: 1  Instance: /RISC_TB
+# 1
+# Break in Module RISC_TB at C:/Users/RUPASHRI R/Documents/RISC/RISC_TB.v line 49
+
