@@ -27,8 +27,8 @@ The processor demonstrates a simplified RISC instruction set supporting **arithm
 
 ## 🏗️ Project Structure
 
-RISC-Processor/
-├── docs/ # Documentation & reports
+```RISC-Processor/
+├── docs/  # Documentation & reports
 │ ├── RISC_Report.pdf
 │ ├── RTL_View.pdf
 │ ├── Waveform.png
@@ -49,7 +49,7 @@ RISC-Processor/
 │ └── RISC.qpf
 ├── .gitignore
 ├── README.md
-└── LICENSE
+└── LICENSE```
 
 
 ---
@@ -98,7 +98,7 @@ RISC-Processor/
 
 1. Clone the repository:  
 ```bash
-git clone https://github.com/YourUsername/8_bit_RISC_RTL.git
+git clone https://github.com/YourUsername/8_bit_RISC_RTL.git ```
 2. Open ModelSim.
 3. Compile all .v files from the src/ folder.
 4. Load the RISC_TB testbench.
