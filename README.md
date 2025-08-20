@@ -100,7 +100,7 @@ The processor demonstrates a simplified RISC instruction set supporting **arithm
 
 1. Clone the repository:  
 ```bash
-git clone https://github.com/YourUsername/8_bit_RISC_RTL.git 
+git clone https://github.com/RupashriRamesh/8_bit_RISC_RTL.git 
 ```
 2. Open ModelSim.
 3. Compile all .v files from the src/ folder.
@@ -109,20 +109,21 @@ git clone https://github.com/YourUsername/8_bit_RISC_RTL.git
 
 📚 Documentation
 
-Detailed explanation of architecture, instruction set, and simulation results is available in [RISC_Processor_Report.pdf](docs/RISC_Report.pdf).
+Detailed explanation of architecture, instruction set, and simulation results is available in [RISC_Processor_Report.pdf](docs/Risc_processor_report.pdf).
 
 
-📌 Future Enhancements
+## 📌 Future Enhancements
 
 Multi-cycle architecture implementation
 Pipeline execution support
 Integration with FPGA hardware
 Enhanced instruction set
 
+--- 
+
 📜 License
 
 This project is licensed under the MIT License.
 
 ✍️ Author
-
-Rupashri Ramesh
+Rupashri R
